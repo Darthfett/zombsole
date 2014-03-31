@@ -5,8 +5,6 @@ import os
 import sys
 import time
 
-from termcolor import colored
-
 from core import World
 from things import Box, Wall, Zombie, ObjectiveLocation, Player
 
@@ -30,6 +28,7 @@ def create_rules(name, game):
 
 class Rules(object):
     """Rules to decide when a game ends, and when it's won."""
+
     def __init__(self, game):
         self.game = game
 
@@ -55,6 +54,7 @@ class Rules(object):
 
 class Map(object):
     """A map for a world."""
+
     def __init__(self, size, things, player_spawns=None, zombie_spawns=None,
                  objectives=None):
         self.size = size
@@ -117,6 +117,7 @@ class Game(object):
        This includes player and zombies spawning, game main loop, deciding when
        to stop, importing map data, drawing each update, etc.
     """
+
     def __init__(self, rules_name, player_names, map_, initial_zombies=0,
                  minimum_zombies=0, docker_isolator=False, debug=False,
                  isolator_port=8000, use_basic_icons=False, use_arduino=False,
@@ -142,6 +143,7 @@ class Game(object):
 
         if docker_isolator:
             from isolation.players_client import create_player_client
+
             self.players = [create_player_client(name, rules_name,
                                                  self.map.objectives,
                                                  self.isolator_port)
@@ -185,7 +187,7 @@ class Game(object):
                 icon = thing.icon_basic
             else:
                 icon = thing.icon
-            return colored(icon, thing.color)
+            return icon
         else:
             return u' '
 
@@ -221,9 +223,9 @@ class Game(object):
 
                 print('')
                 if won:
-                    print(colored(u'WIN! ', 'green'))
+                    print(u'WIN! ')
                 else:
-                    print(colored(u'GAME OVER ', 'red'))
+                    print(u'GAME OVER ')
                 print(description)
 
                 return won, description
@@ -257,11 +259,11 @@ class Game(object):
             if player.life > 0:
                 # a small "health bar" with unicode chars, from 0 to 10 chars
                 life_chars_count = int((10.0 / player.MAX_LIFE) * player.life)
-                life_chars = life_chars_count * u'\u2588'
-                no_life_chars = (10 - life_chars_count) * u'\u2591'
-                life_bar = u'\u2665 %s%s' % (life_chars, no_life_chars)
+                life_chars = life_chars_count * u'='
+                no_life_chars = (10 - life_chars_count) * u'|'
+                life_bar = u'life %s%s' % (life_chars, no_life_chars)
             else:
-                life_bar = u'\u2620 [dead]'
+                life_bar = u'life [dead]'
 
             player_stats = u'%s %s <%i %s %s>: %s' % (life_bar,
                                                       player.name,
@@ -270,16 +272,15 @@ class Game(object):
                                                       weapon_name,
                                                       player.status or u'-')
 
-            screen += '\n' + colored(player_stats, player.color)
+            screen += '\n' + player_stats
 
         # print events (of last step) for debugging
         if self.debug:
             screen += u'\n'
-            screen += u'\n'.join([colored(u'%s: %s' % (thing.name, event),
-                                          thing.color)
+            screen += u'\n'.join([u'%s: %s' % (thing.name, event)
                                   for t, thing, event in self.world.events
                                   if t == self.world.t])
-        os.system('clear')
+        os.system('cls')
         print(screen)
 
         # if using arduino screen, send data

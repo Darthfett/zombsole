@@ -10,8 +10,8 @@ from weapons import ZombieClaws, Knife, Axe, Gun, Rifle, Shotgun
 class Box(Thing):
     """Solid box."""
     MAX_LIFE = 10
-    ICON = u'\u2612'
-    ICON_BASIC = u'@'
+    ICON = u'+'
+    ICON_BASIC = u'+'
 
     def __init__(self, position):
         super(Box, self).__init__(u'box', Box.ICON, Box.ICON_BASIC, 'yellow',
@@ -20,8 +20,8 @@ class Box(Thing):
 
 class DeadBody(Thing):
     """Dead body."""
-    ICON = u'\u2620'
-    ICON_BASIC = u'='
+    ICON = u'*'
+    ICON_BASIC = u'*'
 
     def __init__(self, name, color, position):
         super(DeadBody, self).__init__(name, DeadBody.ICON,
@@ -31,8 +31,8 @@ class DeadBody(Thing):
 
 class ObjectiveLocation(Thing):
     """Objective location."""
-    ICON = u'\u2591'
-    ICON_BASIC = u'*'
+    ICON = u'!'
+    ICON_BASIC = u'!'
 
     def __init__(self, position):
         super(ObjectiveLocation, self).__init__('objective',
@@ -45,7 +45,7 @@ class ObjectiveLocation(Thing):
 class Wall(Thing):
     """Solid section of wall."""
     MAX_LIFE = 200
-    ICON = u'\u2593'
+    ICON = u'#'
     ICON_BASIC = u'#'
 
     def __init__(self, position):
@@ -55,7 +55,7 @@ class Wall(Thing):
 
 class Zombie(FightingThing):
     MAX_LIFE = 100
-    ICON = u'\u2A30'
+    ICON = u'x'
     ICON_BASIC = u'x'
 
     def __init__(self, position=None):
@@ -107,8 +107,8 @@ class Zombie(FightingThing):
 
 class Player(FightingThing):
     MAX_LIFE = 100
-    ICON = u'\u2A30'
-    ICON_BASIC = u'x'
+    ICON = u'P'
+    ICON_BASIC = u'P'
 
     def __init__(self, name, color, position=None, weapon=None, rules=None,
                  objectives=None, icon=None):
