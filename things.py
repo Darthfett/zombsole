@@ -115,9 +115,12 @@ class Player(FightingThing):
         if weapon is None:
             weapon = random.choice([Gun, Shotgun, Rifle, Knife, Axe])()
 
+        if icon is None:
+            icon = Player.ICON
+
         dead_decoration = DeadBody('dead ' + name, color, None)
 
-        super(Player, self).__init__(name, Player.ICON, Player.ICON_BASIC,
+        super(Player, self).__init__(name, icon, Player.ICON_BASIC,
                                      color, Player.MAX_LIFE, weapon, position,
                                      dead_decoration)
 
